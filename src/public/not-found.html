@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 — Resource Not Found</title>
+
+    <!-- SPA Redirect Handling -->
+    <script>
+      (function () {
+        const path = window.location.pathname;
+        if (path !== "/") {
+          window.location.replace("/?redirect=" + encodeURIComponent(path));
+        }
+      })();
+    </script>
+
+    <style>
+      :root {
+        --accent: #ff7a00; /* subtle saffron accent */
+        --text-primary: #1a1a1a;
+        --text-secondary: #555;
+        --border-color: #e5e5e5;
+        --bg: #fafafa;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          sans-serif;
+      }
+
+      body {
+        height: 100vh;
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-primary);
+      }
+
+      .container {
+        width: 100%;
+        max-width: 640px;
+        padding: 40px;
+      }
+
+      .server-badge {
+        display: inline-block;
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 6px 12px;
+        border-radius: 4px;
+        border: 1px solid var(--border-color);
+        background: #fff;
+        margin-bottom: 20px;
+      }
+
+      .server-badge span {
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      h1 {
+        font-size: 3rem;
+        margin-bottom: 10px;
+      }
+
+      h2 {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        margin-bottom: 20px;
+      }
+
+      .divider {
+        height: 2px;
+        width: 60px;
+        background: var(--accent);
+        margin: 20px 0;
+      }
+
+      p {
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      .actions {
+        margin-top: 30px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 10px 18px;
+        border-radius: 6px;
+        border: 1px solid var(--accent);
+        text-decoration: none;
+        font-size: 0.9rem;
+        color: var(--accent);
+        transition: 0.2s ease;
+      }
+
+      .btn:hover {
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .footer {
+        margin-top: 40px;
+        font-size: 0.75rem;
+        color: #888;
+      }
+
+      .footer span {
+        color: var(--accent);
+      }
+
+      .block {
+        margin-top: 10px;
+        font-size: 0.9rem;
+        padding: 4px 10px;
+        width: fit-content;
+        background-color: #fff;
+        border-block: 1px solid var(--border-color);
+        border-inline: 1px solid var(--accent);
+        border-radius: 4px;
+      }
+
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 2.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="server-badge">
+        <span>Static Server</span> — Production Mode
+      </div>
+
+      <h1>404</h1>
+      <h2>Requested resource was not found.</h2>
+
+      <div class="divider"></div>
+
+      <p>
+        The URL you accessed does not exist on this server. If you entered the
+        address manually, please verify it and try again.
+      </p>
+
+      <div class="block">URL:&nbsp;&nbsp;<span id="url"></span></div>
+
+      <div class="actions">
+        <a href="/" class="btn">Return to Home</a>
+      </div>
+
+      <div class="footer">
+        Serving content reliably — <span>Built in India</span>
+      </div>
+    </div>
+    <script>
+      let url = location.href.split("?")[0];
+      if (url.endsWith("/")) url = url.slice(0, -1);
+      const redirect = new URLSearchParams(
+        decodeURIComponent(location.search),
+      ).get("redirect");
+      if (redirect) url += redirect;
+      document.getElementById("url").textContent = url;
+    </script>
+  </body>
+</html>

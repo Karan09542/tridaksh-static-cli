@@ -1,0 +1,54 @@
+{
+  "name": "@tridaksh/static-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "static": "dist/index.js"
+  },
+  "scripts": {
+    "start": "nodemon dist/index.js",
+    "build": "tsc && npm run copyfiles",
+    "dev": "tsc -w && npm run copyfiles",
+    "copyfiles": "copyfiles -u 1 src/public/**/* dist && copyfiles -u 1 src/gui/**/* dist"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "tridaksh",
+    "tridaksh static server",
+    "tradaksh-static-server",
+    "static",
+    "static cli",
+    "static cli tool",
+    "static server cli",
+    "static file server"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tridaksh/static-gui": "1.0.0",
+    "archiver": "^7.0.1",
+    "busboy": "^1.6.0",
+    "chalk": "^5.6.2",
+    "mime-types": "^3.0.2",
+    "minimatch": "^10.2.4"
+  },
+  "homepage": "http://homepage url",
+  "repository": {
+    "type": "git",
+    "url": "get repository url"
+  },
+  "devDependencies": {
+    "@types/archiver": "^7.0.0",
+    "@types/busboy": "^1.5.4",
+    "@types/mime-types": "^3.0.1",
+    "@types/node": "^25.2.3",
+    "copyfiles": "^2.4.1",
+    "nodemon": "^3.1.11",
+    "typescript": "^5.9.3"
+  }
+}
