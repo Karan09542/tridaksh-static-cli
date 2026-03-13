@@ -16,7 +16,6 @@ import { formatFileStats } from "../lib/index.js";
 import Busboy from "busboy";
 import { minimatch } from "minimatch";
 import { createRequire } from "module";
-import { match } from "assert";
 const require = createRequire(import.meta.url);
 
 let guiDist: string | null = null;
@@ -61,7 +60,7 @@ function setDownloadHeader(res: any, filename: string) {
 
   res.setHeader(
     "Content-Disposition",
-    `attachment; filename="file"; filename*=UTF-8''${encoded}`,
+    `attachment; filename*=UTF-8''${encoded}`,
   );
 }
 
@@ -170,6 +169,7 @@ class StaticServer extends ProcessManagement {
   private initServer() {
     const server = http.createServer(async (req, res) => {
       res.sendError = (code: number, message: string) => {
+        if(res.headersSent) return
         res.statusCode = code;
         if (typeof message === "string") {
           res.setHeader("Content-Type", "text/plain");
@@ -302,7 +302,9 @@ class StaticServer extends ProcessManagement {
         res.setHeader("Cache-Control", "public, no-cache");
         this.setEtag(res, stat.size, stat.mtimeMs);
 
-        const filename = path.basename(this.config.dir) + ".tar.gz";
+        const filename =
+          path.basename(this.config.dir) +
+          ".tar.gz";
         setDownloadHeader(res, filename);
 
         const archive = archiver("tar", {
@@ -892,6 +894,7 @@ class StaticServer extends ProcessManagement {
     statusCode: number,
     message?: string,
   ) {
+    if(res.headersSent) return
     try {
       const notFoundPagePath = path.join(
         global.__dirname,
@@ -911,7 +914,6 @@ class StaticServer extends ProcessManagement {
         res.end(data);
       }
     } catch (error) {
-      console.log(error);
       res.sendError(404, "Not Found");
     }
   }
