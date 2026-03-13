@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "type": "module",
-  "private": true,
   "bin": {
     "static": "dist/index.js"
   },
@@ -42,6 +41,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Karan09542/tridaksh-static-cli.git"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "devDependencies": {
     "@types/archiver": "^7.0.0",
